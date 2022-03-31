@@ -1,0 +1,222 @@
+/* 18 x 10 */
+
+:root {
+    --element-size: 3rem;
+    --grid-gap: 0.2rem;
+    --element-zoom: 3;
+}
+
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+body {
+    margin: 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: var(--grid-gap);
+}
+.element {
+    background-color: red;
+    width: var(--element-size);
+    height: var(--element-size);
+    background-color: #444444;
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+.element.in {
+    animation: elementHover 400ms ease 0s 1 forwards;
+}
+.element.out {
+    animation: elementUnHover 400ms ease 0s 1 forwards;
+}
+@keyframes elementHover {
+    80% {
+        transform: scale(var(--element-zoom));
+        z-index: 100;
+        background-color: #555555;
+        overflow: hidden;
+    }
+    100% {
+        transform: scale(var(--element-zoom));
+        z-index: 100;
+        background-color: #555555;
+        overflow: visible;
+    }
+}
+@keyframes elementUnHover {
+    0% {
+        transform: scale(var(--element-zoom));
+        z-index: 100;
+        background-color: #555555;
+        overflow: hidden;
+    }
+    100% {
+        transform: scale(1);
+        z-index: unset;
+        background-color: #444444;
+        overflow: hidden;
+    }
+}
+.element-number {
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 300ms ease;
+}
+.element-symbol {
+    font-size: 2rem;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    transition: all 300ms ease;
+}
+.element-name {
+    font-size: 2rem;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    transition: all 300ms ease;
+    opacity: 0;
+}
+.element:hover .element-number {
+    text-align: right;
+    right: 0.2rem;
+    font-size: 0.5rem;
+    bottom: 0;
+    top: auto;
+}
+.element:hover .element-symbol {
+    top: 0;
+    text-align: left;
+    font-size: 0.5rem;
+    left: 0.2rem;
+    opacity: 0;
+}
+.element:hover .element-name {
+    opacity: 1;
+    top: 0.1rem;
+    text-align: left;
+    font-size: 0.4rem;
+    left: 0.2rem;
+}
+.element-diagram {
+    opacity: 0;
+    transform: scale(0);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 300ms ease;
+}
+.element:hover .element-diagram {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.element-info {
+    position: absolute;
+    top: calc(100% - 0.5rem);
+    position: relative;
+    display: none;
+    opacity: 0;
+    transition: all 300ms ease;
+}
+.element-info-icon {
+    background-color: #bbbbbb;
+    color: #444444;
+    font-weight: bold;
+    font-size: 0.4rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    position: absolute;
+    left: 0.15rem;
+    top: -0.15rem;
+    text-align: center;
+}
+.element-info-icon-text {
+    margin-top: 0.12rem;
+}
+.element-info-display {
+    display: none;
+    background-color: #444444;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 0.7rem;
+    color: white;
+    font-size: 0.5rem;
+    width: calc((((var(--element-size) + var(--grid-gap)) / var(--element-zoom)) * 18) - 0.4rem);
+    padding: 0.2rem;
+    transform: translateX(
+        calc(((var(--x) - 1) * ((var(--element-size) + var(--grid-gap)) / var(--element-zoom)) * -1) + (var(--element-size) / var(--element-zoom)))
+    );
+}
+
+.element:hover .element-info {
+    display: inline-block;
+    opacity: 1;
+}
+
+.element-info:hover .element-info-display {
+    display: inline-block;
+}
+.click-to-enlarge {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0.5rem;
+    color: #fff;
+    display: none;
+}
+.click-to-enlarge.shown {
+    display: inline-block;
+}
+.spacer {
+    --spacer-size: 1rem;
+    height: var(--spacer-size);
+    width: 100%;
+    position: absolute;
+    bottom: calc(var(--spacer-size) * -1);
+    left: 0;
+    display: inline-block;
+}
+.spacer2 {
+    --spacer-size: 1rem;
+    width: var(--spacer-size);
+    height: 100%;
+    position: absolute;
+    left: calc(var(--spacer-size) * -1);
+    top: 0;
+    display: inline-block;
+}
+.spacer3 {
+    --spacer-size: 1rem;
+    height: var(--spacer-size);
+    width: calc(100% + 1rem);
+    position: absolute;
+    top: calc(var(--spacer-size) * -1);
+    left: -1rem;
+    display: inline-block;
+}
