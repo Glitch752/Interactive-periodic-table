@@ -12,6 +12,15 @@
     <div class="periodic-table" id="periodicTable">
         <!-- Updated dynamically with JS -->
     </div>
+    <div class="key" id="key">
+        <!-- Updated dynamically with JS -->
+    </div>
+    <canvas id="overlay" class="overlay"></canvas>
+    <label class="toggle" for="CPKColors">
+        <span class="toggle__span">Use CPK colors</span>
+        <input class="toggle__input" name="CPKColors" type="checkbox" id="CPKColors" onchange="updateColors()">
+        <div class="toggle__fill"></div>
+    </label>
     <span class="click-to-enlarge" id="clickToEnlarge">Click an element to enlarge it.</span>
 </body>
 </html>

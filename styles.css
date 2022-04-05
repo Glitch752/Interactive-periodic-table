@@ -26,10 +26,9 @@ body {
     gap: var(--grid-gap);
 }
 .element {
-    background-color: red;
     width: var(--element-size);
     height: var(--element-size);
-    background-color: #444444;
+    background-color: var(--background);
     border-radius: 0.5rem;
     position: relative;
     overflow: hidden;
@@ -64,24 +63,24 @@ body {
     100% {
         transform: scale(1);
         z-index: unset;
-        background-color: #444444;
+        background-color: var(--background);
         overflow: hidden;
     }
 }
 .element-number {
-    color: white;
+    color: var(--color);
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     position: absolute;
-    top: 0;
+    top: 0.05rem;
     left: 0;
     right: 0;
     transition: all 300ms ease;
 }
 .element-symbol {
-    font-size: 2rem;
+    font-size: 1.5rem;
     position: absolute;
-    top: 1rem;
+    top: 0.65rem;
     left: 0;
     right: 0;
     text-align: center;
@@ -96,6 +95,21 @@ body {
     text-align: center;
     transition: all 300ms ease;
     opacity: 0;
+}
+.element-mass {
+    color: var(--color);
+    text-align: center;
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: 0.05rem;
+    left: 0;
+    right: 0;
+    transition: all 300ms ease;
+    opacity: 1;
+}
+.element:hover .element-mass {
+    opacity: 0;
+    font-size: 0.4rem;
 }
 .element:hover .element-number {
     text-align: right;
@@ -131,6 +145,24 @@ body {
 .element:hover .element-diagram {
     opacity: 1;
     transform: scale(1);
+}
+.element-group {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    max-width: var(--element-size);
+    max-height: var(--element-size);
+    z-index: 96;
+    transform: translateY(calc(((var(--element-size) + var(--grid-gap)) * -1) + 1rem))
+}
+.element-period {
+    color: white;
+    font-size: 2rem;
+    text-align: right;
+    max-width: var(--element-size);
+    max-height: var(--element-size);
+    z-index: 96;
+    transform: translateX(calc(((var(--element-size) + var(--grid-gap)) * -1) - 0.5rem))
 }
 
 .element-info {
@@ -193,6 +225,12 @@ body {
 .click-to-enlarge.shown {
     display: inline-block;
 }
+.element.in .element-number {
+    color: #ffffff;
+}
+.element.in .element-name {
+    color: var(--cpk) !important;
+}
 .spacer {
     --spacer-size: 1rem;
     height: var(--spacer-size);
@@ -219,4 +257,87 @@ body {
     top: calc(var(--spacer-size) * -1);
     left: -1rem;
     display: inline-block;
+}
+
+.toggle {
+    --width: 3rem;
+    --height: calc(var(--width) / 2);
+    --border-radius: calc(var(--height) / 2);
+    --margin: 1rem;
+
+    display: inline-block;
+    cursor: pointer;
+    
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: var(--margin);
+    z-index: 98;
+}
+.toggle__input {
+    display: none;
+}
+.toggle__fill {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
+    background: #dddddd;
+    transition: background 0.2s;
+    transform: translateY(-5px);
+}
+.toggle__span {
+    position: absolute;
+    bottom: -0.2rem;
+    font-family: arial;
+    left: calc(var(--margin) + var(--width));
+    font-size: 2rem;
+    text-align: left;
+    width: 20rem;
+    color: white;
+}
+.toggle__fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: var(--height);
+    width: var(--height);
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    border-radius: var(--border-radius);
+    transition: transform 0.2s;
+}
+.toggle__input:checked ~ .toggle__fill {
+    background: #009578;
+}
+
+.toggle__input:checked ~ .toggle__fill::after {
+    transform: translateX(var(--height));
+}
+.overlay {
+    z-index: 99;
+    position: absolute;
+    pointer-events: none;
+}
+.key {
+    position: absolute;
+    margin: 1rem;
+    top: 0;
+    left: 0;
+}
+.key-color {
+    border: 0.2rem solid white;
+    width: 0.7rem;
+    height: 0.7rem;
+    display: inline-block;
+}
+.key-text {
+    display: inline-block;
+    color: #bbbbbb;
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+}
+.active-key .key-text {
+    color: #ffffff;
 }
